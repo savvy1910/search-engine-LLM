@@ -19,14 +19,15 @@ jobs:
       - name: Configure Git
         run: |
           git config --global user.email "savvy.techie.1910@gmail.com"
-          git config --global user.name "divy-techie"
+          git config --global user.name "savvy1910"
 
       - name: Pull from Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git remote add hf https://divy-techie:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/divy-techie/search_engine_LLM
-          git pull hf main --allow-unrelated-histories || echo "No remote changes to merge"
+          git fetch hf main
+          git rebase hf/main || echo "No rebase needed"
 
       - name: Push to Hugging Face Space
         env:
