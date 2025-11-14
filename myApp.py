@@ -9,7 +9,6 @@ from langchain.callbacks import StreamlitCallbackHandler
 import os
 
 from dotenv import load_dotenv
-
 load_dotenv()
 os.environ["TAVILY_API_KEY"] = "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"
 
