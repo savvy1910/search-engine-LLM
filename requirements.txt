@@ -1,4 +1,4 @@
-langchain
+langchain==0.0.299
 langchain-community
 langchain-openai
 langchain-groq
@@ -28,3 +28,4 @@ unstructured
 pytube
 numexpr
 huggingface_hub
+
