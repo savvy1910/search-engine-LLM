@@ -12,13 +12,15 @@ from dotenv import load_dotenv
 load_dotenv()
 os.environ["TAVILY_API_KEY"] = "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"
 
-## Arxiv and wikipedia Tools
+## Arxiv Tool
 arxiv_wrapper=ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=200)
 arxiv=ArxivQueryRun(api_wrapper=arxiv_wrapper)
 
+## Wikipedia Tools
 api_wrapper=WikipediaAPIWrapper(top_k_results=1,doc_content_chars_max=200)
 wiki=WikipediaQueryRun(api_wrapper=api_wrapper)
 
+## Search Tools
 search = TavilySearchResults(k=5)  # k = number of results
 
 st.title("🔎 LangChain - Chat with search")
@@ -54,4 +56,5 @@ if prompt:=st.chat_input(placeholder="What is machine learning?"):
         response = search_agent.run(prompt, callbacks=[st_cb])
         st.session_state.messages.append({'role':'assistant','content':response})
         st.write(response)
+
 
