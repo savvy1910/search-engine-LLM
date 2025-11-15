@@ -27,10 +27,12 @@ jobs:
         run: |
           git remote add hf https://divy-techie:${HF_TOKEN}@huggingface.co/spaces/divy-techie/search_engine_with_agents
           git fetch hf main || echo "No remote branch yet"
-          git rebase hf/main || echo "Nothing to rebase"
+          git rebase hf/main || echo "Rebase skipped or failed"
 
-      - name: Push to Hugging Face Space
+      - name: Push to Hugging Face Space (with fallback)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push https://divy-techie:${HF_TOKEN}@huggingface.co/spaces/divy-techie/search_engine_with_agents main
+          git push https://divy-techie:${HF_TOKEN}@huggingface.co/spaces/divy-techie/search_engine_with_agents main || \
+          (echo "Standard push failed, attempting force push..." && \
+           git push --force https://divy-techie:${HF_TOKEN}@huggingface.co/spaces/divy-techie/search_engine_with_agents main)
